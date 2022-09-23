@@ -306,8 +306,8 @@ public with sharing class Utility_TestDataFactory {
         return [SELECT Id FROM Profile WHERE Name = :name LIMIT 1];
     }
 
-    public static User createBaseUser(String alias, String defualtGroupNotifFrequency, String digestFrequency, String email, String lastName, 
-                                    String languageLocalKey, String localeSidKey, Id profileId, String timeZoneSidKey, String username, 
+    public static User createBaseUser(String alias, String defualtGroupNotifFrequency, String digestFrequency, String email, String emailEncodingKey, 
+                                    String lastName, String languageLocalKey, String localeSidKey, Id profileId, String timeZoneSidKey, String username, 
                                     Boolean marketingUser, Boolean offlineUser, Boolean doInsert)
     {
         if(profileId == null)
@@ -317,7 +317,7 @@ public with sharing class Utility_TestDataFactory {
 
         if(alias == null)
         {
-            alias = randomString(15);
+            alias = randomString(8);
         }
 
         if(defualtGroupNotifFrequency == null)
@@ -333,6 +333,11 @@ public with sharing class Utility_TestDataFactory {
         if(email == null)
         {
             email = randomEmail(null, null);
+        }
+
+        if(emailEncodingKey == null)
+        {
+            emailEncodingKey = 'UTF-8';
         }
 
         if(lastName == null)
@@ -357,7 +362,7 @@ public with sharing class Utility_TestDataFactory {
 
         if(username == null)
         {
-            email = randomEmail(null, null);
+            username = randomEmail(null, null);
         }
 
         if(marketingUser == null)
@@ -376,6 +381,7 @@ public with sharing class Utility_TestDataFactory {
         baseUser.DefaultGroupNotificationFrequency = defualtGroupNotifFrequency;
         baseUser.DigestFrequency = digestFrequency;
         baseUser.Email = email;
+        baseUser.EmailEncodingKey = emailEncodingKey;
         baseUser.LastName = lastName;
         baseUser.LanguageLocaleKey = languageLocalKey;
         baseUser.LocaleSidKey = localeSidKey;
@@ -393,14 +399,14 @@ public with sharing class Utility_TestDataFactory {
         return baseUser;
     }
 
-    public static User createSystemAdmin(String alias, String defualtGroupNotifFrequency, String digestFrequency, String email, String lastName, 
-                                    String languageLocalKey, String localeSidKey, String timeZoneSidKey, String username, 
+    public static User createSystemAdmin(String alias, String defualtGroupNotifFrequency, String digestFrequency, String email, String emailEncodingKey, 
+                                    String lastName, String languageLocalKey, String localeSidKey, String timeZoneSidKey, String username, 
                                     Boolean marketingUser, Boolean offlineUser, Boolean doInsert)
     {
         Profile sysAdminProfile = getProfileByName('System Administrator');
 
-        return createBaseUser(alias, defualtGroupNotifFrequency, digestFrequency, email, lastName, languageLocalKey, localeSidKey, sysAdminProfile.Id, 
-                            timeZoneSidKey, username, marketingUser, offlineUser, doInsert);
+        return createBaseUser(alias, defualtGroupNotifFrequency, digestFrequency, email, emailEncodingKey, lastName, languageLocalKey, localeSidKey, 
+                            sysAdminProfile.Id, timeZoneSidKey, username, marketingUser, offlineUser, doInsert);
     }
 
     // =========

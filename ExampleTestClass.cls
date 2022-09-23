@@ -49,4 +49,12 @@ public with sharing class ExampleTestClass {
     static testMethod void validatePricebookEntryCreated() {
         PricebookEntry tempPricebookentry = Utility_TestDataFactory.createPricebookEntry(null, null, null, true);
     }
+
+    static testMethod void validateBaseUserCreated() {
+        User tempuser = Utility_TestDataFactory.createBaseUser(null, null, null, null, null, null, null, null, Utility_TestDataFactory.getProfileByName('Standard User').Id, null, null, null, null, true);
+    }
+
+    static testMethod void validateAdminUserCreated() {
+        User tempuser = Utility_TestDataFactory.createSystemAdmin(null, null, null, null, null, null, null, null, null, null, null, null, true);
+    }
 }
